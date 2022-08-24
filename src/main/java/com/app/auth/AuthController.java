@@ -42,18 +42,4 @@ public class AuthController {
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).build();
     }
 
-    public ResponseEntity logout(@CookieValue(name = "token") String token){
-        // remove the user from the security context
-        SecurityContextHolder.getContext().setAuthentication(null);
-        ResponseCookie jwtCookie = ResponseCookie.from("token", token)
-                .httpOnly(true)
-                .path("/")
-                .domain("localhost")
-                .maxAge(0)
-                .build();
-
-        logger.info("a user logged out");
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).build();
-
-    }
 }
